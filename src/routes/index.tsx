@@ -6,6 +6,7 @@ import { JobCard } from "@/components/jobs/job-card";
 import { PageBody } from "@/components/site/page-frame";
 import { careerArticles, categories, jobsRepository } from "@/lib/jobs/data";
 import { pageHead } from "@/lib/jobs/seo";
+import careerPhoto from "@/assets/syncrotech-career-photo.jpg";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -95,7 +96,7 @@ function Index() {
 
           <div className="relative hidden lg:block">
             <img
-              src="/src/assets/syncrotech-career-photo.jpg"
+              src={careerPhoto}
               alt="A young graduate working at a laptop in a bright, modern coworking space"
               className="aspect-[4/3] w-full rounded-2xl border border-border object-cover shadow-md"
               loading="eager"
