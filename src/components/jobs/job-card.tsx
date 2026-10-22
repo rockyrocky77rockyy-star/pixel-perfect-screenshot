@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { Briefcase, Building2, MapPin } from "lucide-react";
+import { Briefcase, Building2, FlaskConical, MapPin } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import type { Job } from "@/lib/jobs/types";
 
@@ -65,5 +65,3 @@ export function JobCard({ job }: { job: Job }) {
     </article>
   );
 }
-
-import { FlaskConical } from "lucide-react";
