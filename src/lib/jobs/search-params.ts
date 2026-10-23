@@ -22,16 +22,17 @@ const text = (value: unknown, max: number) =>
 
 /** Turn raw URL search parameters into safe, validated search filters. */
 export function parseJobFilters(search: Record<string, unknown> | undefined): SearchFilters {
+  const raw = search ?? {};
   return {
-    q: text(search?.q, 120),
-    location: text(search?.location, 80),
-    company: text(search?.company, 80),
-    experience: typeof search?.experience === "string" && isExperienceLevel(search.experience) ? search.experience : "",
-    workplace: pick(search?.workplace, workplaceOptions),
-    employmentType: pick(search?.employmentType, employmentTypeOptions),
-    category: pick(search?.category, categories.map((category) => category.id)),
-    datePosted: pick(search?.datePosted, ["", "any", "7", "30"]),
-    sort: pick(search?.sort, sortOptions.map((option) => option.value)) || "recent",
+    q: text(raw["q"], 120),
+    location: text(raw["location"], 80),
+    company: text(raw["company"], 80),
+    experience: typeof raw["experience"] === "string" && isExperienceLevel(raw["experience"]) ? raw["experience"] : "",
+    workplace: pick(raw["workplace"], workplaceOptions),
+    employmentType: pick(raw["employmentType"], employmentTypeOptions),
+    category: pick(raw["category"], categories.map((category) => category.id)),
+    datePosted: pick(raw["datePosted"], ["", "any", "7", "30"]),
+    sort: pick(raw["sort"], sortOptions.map((option) => option.value)) || "recent",
   };
 }
 

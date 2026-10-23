@@ -19,7 +19,8 @@ import {
 import type { SearchFilters } from "@/lib/jobs/types";
 
 export const Route = createFileRoute("/jobs/")({
-  validateSearch: (search: unknown): SearchFilters =>
+  // Input type carries optional fields so partial search objects are accepted on links.
+  validateSearch: (search: Partial<SearchFilters>): SearchFilters =>
     parseJobFilters(search as Record<string, unknown> | undefined),
   component: JobsIndexPage,
   head: () => ({
