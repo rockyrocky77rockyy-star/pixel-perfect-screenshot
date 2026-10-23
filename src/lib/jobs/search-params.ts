@@ -58,7 +58,9 @@ export function withClearedFilter(filters: SearchFilters, key: keyof SearchFilte
 const FILTER_KEYS = ["q", "location", "company", "experience", "workplace", "employmentType", "category", "datePosted"] as const;
 
 export function countActiveFilters(filters: SearchFilters): number {
-  return FILTER_KEYS.filter((key) => filters[key]).length;
+  return FILTER_KEYS.filter((key) =>
+    key === "datePosted" ? Boolean(filters.datePosted) && filters.datePosted !== "any" : Boolean(filters[key]),
+  ).length;
 }
 
 export { createEmptyFilters };
