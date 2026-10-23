@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { SlidersHorizontal } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
+import { useJobSearchSubmit } from "@/components/jobs/use-job-search-submit";
 import { categories } from "@/lib/jobs/data";
 import { employmentTypeOptions, workplaceOptions, datePostedOptions, sortOptions } from "@/lib/jobs/search-params";
 import { isExperienceLevel } from "@/lib/jobs/search";
@@ -45,11 +46,12 @@ function SelectControl({
   );
 }
 
-/** Filter form; submits as GET to /jobs so every filter is preserved in the URL. */
+/** Filter form; submits only the filters you fill in, so every criterion is preserved in the URL. */
 export function FilterPanel({ filters }: { filters: SearchFilters }) {
   const experience = isExperienceLevel(filters.experience) ? filters.experience : "";
+  const submit = useJobSearchSubmit();
   return (
-    <form method="get" action="/jobs" aria-label="Job search filters" className="rounded-xl border border-border bg-card p-5">
+    <form method="get" action="/jobs" onSubmit={submit} aria-label="Job search filters" className="rounded-xl border border-border bg-card p-5">
       <div className="mb-4 flex items-center gap-2 text-sm font-semibold text-foreground">
         <SlidersHorizontal aria-hidden className="size-4 text-brand" />
         Refine results
