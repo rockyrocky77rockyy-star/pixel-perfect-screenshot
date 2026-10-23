@@ -26,7 +26,7 @@ function SelectControl({
   name: string;
   value: string;
   options: readonly { value: string; label: string }[];
-  anyLabel: string;
+  anyLabel?: string;
 }) {
   return (
     <div className="flex flex-col gap-1.5">
@@ -34,7 +34,7 @@ function SelectControl({
         {label}
       </Label>
       <select id={id} name={name} defaultValue={value} className={cn(controlClass, "appearance-none bg-card")}>
-        <option value="">{anyLabel}</option>
+        {anyLabel && <option value="">{anyLabel}</option>}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}
@@ -139,7 +139,6 @@ export function FilterPanel({ filters }: { filters: SearchFilters }) {
           label="Sort by"
           name="sort"
           value={filters.sort}
-          anyLabel="Most recent"
           options={sortOptions}
         />
       </div>
