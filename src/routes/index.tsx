@@ -6,6 +6,7 @@ import { JobCard } from "@/components/jobs/job-card";
 import { PageBody } from "@/components/site/page-frame";
 import { careerArticles, categories, jobsRepository } from "@/lib/jobs/data";
 import { pageHead } from "@/lib/jobs/seo";
+import { useJobSearchSubmit } from "@/components/jobs/use-job-search-submit";
 import careerPhoto from "@/assets/syncrotech-career-photo.jpg";
 
 export const Route = createFileRoute("/")({
@@ -46,7 +47,7 @@ function Index() {
               and always tells you exactly what each listing is.
             </p>
 
-            <form method="get" action="/jobs" aria-label="Job search" className="mt-8 rounded-xl border border-border bg-card p-4 shadow-sm">
+            <form method="get" action="/jobs" onSubmit={submitJobSearch} aria-label="Job search" className="mt-8 rounded-xl border border-border bg-card p-4 shadow-sm">
               <div className="grid gap-3 sm:grid-cols-[1.4fr_1fr_auto]">
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="hero-q" className="text-xs font-medium text-muted-foreground">

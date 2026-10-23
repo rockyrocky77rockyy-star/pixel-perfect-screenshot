@@ -19,7 +19,8 @@ import {
 import type { SearchFilters } from "@/lib/jobs/types";
 
 export const Route = createFileRoute("/jobs/")({
-  validateSearch: (search: unknown): SearchFilters =>
+  // Every validated field is optional, so links to /jobs accept partial search objects.
+  validateSearch: (search: Partial<SearchFilters>): Partial<SearchFilters> =>
     parseJobFilters(search as Record<string, unknown> | undefined),
   component: JobsIndexPage,
   head: () => ({
@@ -55,7 +56,18 @@ const isActive = (filters: SearchFilters, key: keyof SearchFilters) =>
     : Boolean(filters[key]);
 
 function JobsIndexPage() {
-  const filters = Route.useSearch();
+  const search = Route.useSearch();
+  const filters: SearchFilters = {
+    q: search.q ?? "",
+    location: search.location ?? "",
+    company: search.company ?? "",
+    experience: search.experience ?? "",
+    workplace: search.workplace ?? "",
+    employmentType: search.employmentType ?? "",
+    category: search.category ?? "",
+    datePosted: search.datePosted ?? "",
+    sort: search.sort ?? "recent",
+  };
   const allJobs = jobsRepository.list();
   const results = filterJobs(allJobs, filters);
 

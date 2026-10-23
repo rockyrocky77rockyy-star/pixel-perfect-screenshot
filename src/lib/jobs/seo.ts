@@ -11,7 +11,7 @@ interface PageHeadOptions {
 export function pageHead(title: string, description: string, path: string, options: PageHeadOptions = {}) {
   const { type = "website", noindex = false } = options;
   const canonical = new URL(path, SITE_ORIGIN).toString();
-  const meta: { title?: string; name?: string; property?: string; content: string }[] = [
+  const meta = [
     { title },
     { name: "description", content: description },
     { property: "og:title", content: title },
