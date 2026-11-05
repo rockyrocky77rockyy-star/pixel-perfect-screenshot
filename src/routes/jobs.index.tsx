@@ -19,9 +19,9 @@ import {
 import type { SearchFilters } from "@/lib/jobs/types";
 
 export const Route = createFileRoute("/jobs/")({
-  // Every validated field is optional, so links to /jobs accept partial search objects.
+  // Keep only the filters actually present in the URL, so addresses stay clean and shareable.
   validateSearch: (search: Partial<SearchFilters>): Partial<SearchFilters> =>
-    parseJobFilters(search as Record<string, unknown> | undefined),
+    toSearchObject(parseJobFilters(search as Record<string, unknown> | undefined)),
   component: JobsIndexPage,
   head: () => ({
     ...pageHead(
