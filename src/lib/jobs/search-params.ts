@@ -52,6 +52,21 @@ export function filtersToQueryString(filters: SearchFilters): string {
   return query ? `?${query}` : "";
 }
 
+/** Keep only non-default filter values, so URLs and links stay clean. */
+export function toSearchObject(filters: SearchFilters): Partial<SearchFilters> {
+  const out: Partial<SearchFilters> = {};
+  if (filters.q) out.q = filters.q;
+  if (filters.location) out.location = filters.location;
+  if (filters.company) out.company = filters.company;
+  if (filters.experience) out.experience = filters.experience;
+  if (filters.workplace) out.workplace = filters.workplace;
+  if (filters.employmentType) out.employmentType = filters.employmentType;
+  if (filters.category) out.category = filters.category;
+  if (filters.datePosted && filters.datePosted !== "any") out.datePosted = filters.datePosted;
+  if (filters.sort && filters.sort !== "recent") out.sort = filters.sort;
+  return out;
+}
+
 export function withClearedFilter(filters: SearchFilters, key: keyof SearchFilters): SearchFilters {
   return { ...filters, [key]: "" } as SearchFilters;
 }

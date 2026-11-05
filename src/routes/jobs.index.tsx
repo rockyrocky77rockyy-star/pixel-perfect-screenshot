@@ -11,9 +11,9 @@ import { pageHead } from "@/lib/jobs/seo";
 import { filterJobs } from "@/lib/jobs/search";
 import {
   countActiveFilters,
-  createEmptyFilters,
   datePostedOptions,
   parseJobFilters,
+  toSearchObject,
   withClearedFilter,
 } from "@/lib/jobs/search-params";
 import type { SearchFilters } from "@/lib/jobs/types";
@@ -100,7 +100,7 @@ function JobsIndexPage() {
               <Link
                 key={chip.key}
                 to="/jobs"
-                search={withClearedFilter(filters, chip.key)}
+                search={toSearchObject(withClearedFilter(filters, chip.key))}
                 className="inline-flex items-center gap-1.5 rounded-full border border-border bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:border-destructive/40 hover:text-destructive"
                 aria-label={`Remove filter: ${chip.label}`}
               >
@@ -110,7 +110,6 @@ function JobsIndexPage() {
             ))}
             <Link
               to="/jobs"
-              search={createEmptyFilters()}
               className="text-xs font-medium text-muted-foreground underline-offset-2 transition-colors hover:text-brand hover:underline"
             >
               Clear all
@@ -136,9 +135,7 @@ function JobsIndexPage() {
               description="Try removing a filter, checking the spelling, or broadening your keyword to see more samples."
               action={
                 <Button asChild variant="outline">
-                  <Link to="/jobs" search={createEmptyFilters()}>
-                    Clear all filters
-                  </Link>
+                  <Link to="/jobs">Clear all filters</Link>
                 </Button>
               }
             />

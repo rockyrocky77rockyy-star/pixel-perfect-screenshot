@@ -55,7 +55,7 @@ function CategoryPage() {
               : "No demonstration listings in this category yet."}
           </p>
           <Button asChild variant="outline">
-            <Link to="/jobs" search={{ ...createEmptyFilters(), category: category.id }}>
+            <Link to="/jobs" search={{ category: category.id }}>
               Open in job search
             </Link>
           </Button>
