@@ -27,6 +27,7 @@ const suggestedSearches = [
 ] as const;
 
 function Index() {
+  const submitJobSearch = useJobSearchSubmit();
   const jobs = jobsRepository.list().slice(0, 6);
 
   return (
